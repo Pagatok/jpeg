@@ -7,7 +7,7 @@ CXXFLAGS = -Wall -Wextra -std=c++17 `pkg-config --cflags opencv4`
 LDFLAGS  = `pkg-config --libs opencv4`
 
 # Fichiers sources
-SRCS = main.cpp Point3D.cpp
+SRCS = main.cpp Point3D.cpp Converter.cpp
 
 # Fichiers objets générés automatiquement
 OBJS = $(SRCS:.cpp=.o)

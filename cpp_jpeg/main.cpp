@@ -2,6 +2,7 @@
 #include <string>
 #include <opencv2/opencv.hpp> // NOLINT
 #include "Point3D.hpp"
+#include "Converter.hpp"
 
 using namespace cv;
 using namespace std;

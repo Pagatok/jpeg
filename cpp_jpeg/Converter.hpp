@@ -20,15 +20,16 @@ private:
     // self.H, self.W, self.nbr_canaux = (self.image).shape
     // self.prev_dc = 0
     // self.C = getC(self.taille_bloc)
-    Mat *image, C;
+    Mat image, C;
     int taille_bloc, H, W, nbr_canaux, quality, prev_dc;
     string mode;
+    void init();
 
 public:
     // Constructeur semi-complet
-    Converter(Mat *img, int taille_bloc, int H, int W, int nbr_canaux);
+    Converter(Mat img, int taille_bloc);
     // Constructeur complet
-    Converter(Mat *img, int taille_bloc, int H, int W, int nbr_canaux, int quality, int prev_dc, const string &mode);
+    Converter(Mat img, int taille_bloc, int quality, int prev_dc, string mode);
 };
 
 #endif // CONVERTER_HPP
