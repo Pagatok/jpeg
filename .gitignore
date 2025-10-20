@@ -1,0 +1,12 @@
+env/
+.vscode
+__pycache__
+*go
+soirees_bar_v0.1.xlsx
+table.txt
+*.o
+main
+makefile
+*.c*
+*.hpp
+codec-from-scratch/
