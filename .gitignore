@@ -10,3 +10,4 @@ makefile
 *.c*
 *.hpp
 codec-from-scratch/
+name_release_torrent.py
