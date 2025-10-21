@@ -25,7 +25,9 @@ int main()
         return -1;
     }
 
-    imshow("Image", img); // afficher
-    waitKey(0);           // attendre touche
+    Converter utils = Converter(img, 8);
+
+    imshow("Image", img); 
+    waitKey(0);          
     return 0;
 }

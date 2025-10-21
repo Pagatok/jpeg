@@ -1,4 +1,5 @@
 #include "Converter.hpp"
+#include "Point3D.hpp"
 #include <cmath>
 #include <iostream>
 
@@ -20,6 +21,10 @@ Mat getC(int taille_blocs){
     return C;
 }
 
+
+
+
+
 // ----------------------------  CONSTRUCTEURS ----------------------------------
 
 void Converter::init() {
@@ -37,7 +42,7 @@ Converter::Converter(Mat img, int taille_bloc)
 
 // Constructeur complet
 Converter::Converter(Mat img, int taille_bloc, int quality, int prev_dc, string mode)
-    : image(img), taille_bloc(taille_bloc), quality(0), prev_dc(0), mode("4:2:0"){
+    : image(img), taille_bloc(taille_bloc), quality(50), prev_dc(0), mode("4:2:0"){
     init();
 }
 
