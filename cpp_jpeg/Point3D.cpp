@@ -1,6 +1,8 @@
 #include <cmath>
 #include "Point3D.hpp"
 
+using namespace cv;
+
 Point3D::Point3D() : x(0), y(0), z(0) {}
 Point3D::Point3D(float x, float y, float z) : x(x), y(y), z(z) {}
 
@@ -22,18 +24,16 @@ float Point3D::norme() const
     return std::sqrt(x * x + y * y + z * z);
 }
 
-Point3D rgb2ycbcr(Point3D rgbpoint)
-{
-
-    float R = rgbpoint.getX();
-    float G = rgbpoint.getY();
-    float B = rgbpoint.getZ();
+Point3D pixel_rgb2ycbcr(Vec3b rgbpoint){
+    float R = rgbpoint[0];
+    float G = rgbpoint[1];
+    float B = rgbpoint[2];
 
     float Y = 16 + (65.738 * R + 129.057 * G + 25.064 * B) / 256;
     float Cb = 128 - (37.945 * R + 74.494 * G + 112.439 * B) / 256;
     float Cr = 128 + (112.439 * R + 94.154 * G + 18.285 * B) / 256;
 
-    Point3D p(Y, Cb, Cr);
+    Point3D p = Point3D(Y, Cb, Cr);
 
-    return (p);
+    return p;
 }

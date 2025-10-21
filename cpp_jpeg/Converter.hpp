@@ -20,7 +20,8 @@ private:
     // self.H, self.W, self.nbr_canaux = (self.image).shape
     // self.prev_dc = 0
     // self.C = getC(self.taille_bloc)
-    Mat image, C;
+    Mat original_image, C;
+    vector<vector<Point3D>> work_image;
     int taille_bloc, H, W, nbr_canaux, quality, prev_dc;
     string mode;
     void init();
@@ -30,6 +31,8 @@ public:
     Converter(Mat img, int taille_bloc);
     // Constructeur complet
     Converter(Mat img, int taille_bloc, int quality, int prev_dc, string mode);
+
+    void img_rgb2ycbcr();
 };
 
 #endif // CONVERTER_HPP

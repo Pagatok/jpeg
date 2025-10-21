@@ -2,6 +2,7 @@
 #define POINT3D_H
 
 #include <iostream>
+#include <opencv2/opencv.hpp> // NOLINT
 
 class Point3D
 {
@@ -27,6 +28,6 @@ public:
     float norme() const;
 };
 
-Point3D rgb2ycbcr(Point3D);
+Point3D pixel_rgb2ycbcr(cv::Vec3b rgbpoint);
 
 #endif

@@ -13,8 +13,8 @@ string huff_table_dc_chromin[11] = {"00", "01", "10", "110", "1110", "11110", "1
 int main()
 {
 
-    Point3D p(126, 234, 66);
-    Point3D p2 = rgb2ycbcr(p);
+    Vec3b p(126, 234, 66);
+    Point3D p2 = pixel_rgb2ycbcr(p);
     p2.afficher();
 
     // Manip image basique

@@ -3,6 +3,8 @@
 #include <cmath>
 #include <iostream>
 
+using namespace cv;
+using namespace std;
 
 const double PI = 3.14159265358979323846;
 
@@ -29,22 +31,38 @@ Mat getC(int taille_blocs){
 
 void Converter::init() {
     this->C = getC(taille_bloc);
-    this->H = image.rows;
-    this->W = image.cols;
-    this->nbr_canaux = image.channels();
+    this->H = original_image.rows;
+    this->W = original_image.cols;
+    this->nbr_canaux = original_image.channels();
 }
 
 // Constructeur semi-complet
 Converter::Converter(Mat img, int taille_bloc)
-    : image(img), taille_bloc(taille_bloc), quality(0), prev_dc(0), mode("4:2:0"){
+    : original_image(img), taille_bloc(taille_bloc), quality(0), prev_dc(0), mode("4:2:0"){
     init();
 }
 
 // Constructeur complet
 Converter::Converter(Mat img, int taille_bloc, int quality, int prev_dc, string mode)
-    : image(img), taille_bloc(taille_bloc), quality(50), prev_dc(0), mode("4:2:0"){
+    : original_image(img), taille_bloc(taille_bloc), quality(50), prev_dc(0), mode("4:2:0"){
     init();
 }
 
 
 // ----------------------------  PROCESSING ----------------------------------
+
+// conversion d'une image rgb en jpeg
+void Converter::img_rgb2ycbcr(){
+
+    vector<vector<Point3D>> new_image(H, vector<Point3D>(W));
+
+    for(int i=0; i<H; i++){
+        for(int j=0; j<W; j++){
+            Vec3b pixel = (this->original_image).at<Vec3b>(i, j);
+            Point3D ycbcr = pixel_rgb2ycbcr(pixel);
+            new_image[i][j] = ycbcr;
+        }
+    }
+
+    this->work_image = new_image;
+}
