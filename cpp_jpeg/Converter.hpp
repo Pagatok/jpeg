@@ -25,14 +25,17 @@ private:
     int taille_bloc, H, W, nbr_canaux, quality, prev_dc;
     string mode;
     void init();
+    Mat Y, Cb, Cr;
 
 public:
-    // Constructeur semi-complet
+
+    // Constructeurs
     Converter(Mat img, int taille_bloc);
-    // Constructeur complet
     Converter(Mat img, int taille_bloc, int quality, int prev_dc, string mode);
 
+    //  Processing
     void img_rgb2ycbcr();
+    void sous_ech();
 };
 
 #endif // CONVERTER_HPP

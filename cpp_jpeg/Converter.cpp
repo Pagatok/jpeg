@@ -25,8 +25,6 @@ Mat getC(int taille_blocs){
 
 
 
-
-
 // ----------------------------  CONSTRUCTEURS ----------------------------------
 
 void Converter::init() {
@@ -51,7 +49,7 @@ Converter::Converter(Mat img, int taille_bloc, int quality, int prev_dc, string 
 
 // ----------------------------  PROCESSING ----------------------------------
 
-// conversion d'une image rgb en jpeg
+// conversion d'une image rgb en ycbcr
 void Converter::img_rgb2ycbcr(){
 
     vector<vector<Point3D>> new_image(H, vector<Point3D>(W));
@@ -66,3 +64,47 @@ void Converter::img_rgb2ycbcr(){
 
     this->work_image = new_image;
 }
+
+// Sous-echantillonage d'une image YCbCr
+void Converter::sous_ech(){
+
+    Mat Y(H, W, CV_64F);
+    Mat Cb(H/2, W/2, CV_64F);
+    Mat Cr(H/2, W/2, CV_64F);
+
+    for(int i=0; i<(this->H)/2; i++){
+        for(int j=0; j<(this->W)/2; j++){
+
+            // Parcours du voisinage
+            float sommeCb = 0;
+            float sommeCr = 0;
+            for(int k2=0; k2<2; k2++){
+                for(int k1=0; k1<2; k1++){
+                    Point3D pixel = (this->work_image)[i+k1][j+k2];
+                    Y.at<double>(i+k1,j+k2) = pixel.getX();
+                    sommeCb += pixel.getY();
+                    sommeCr += pixel.getZ();
+                }
+            }
+
+            // Moyennage pour obtenir Cb et Cr
+            Cb.at<double>(i, j) = sommeCb/4;
+            Cr.at<double>(i, j) = sommeCr/4;
+        }
+    }
+
+    this->Y = Y;
+    this->Cb = Cb;
+    this->Cr = Cr;
+}
+
+
+
+// for i, j in zip(range(H//2), range(W//2)):
+            
+//     bloc = self.image[k*i:k*(i+1), 2*j:2*(j+1), :]
+//     avg_bloc = np.mean(bloc, axis=(0, 1))    # Moyenne par canal
+    
+//     new_crominances[i, j, :] = avg_bloc[1:]
+
+// return new_crominances[:, :, 0], new_crominances[:, :, 1]

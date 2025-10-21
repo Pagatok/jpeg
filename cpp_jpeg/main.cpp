@@ -26,6 +26,7 @@ int main()
     }
 
     Converter utils = Converter(img, 8);
+    utils.img_rgb2ycbcr();
 
     imshow("Image", img); 
     waitKey(0);          
