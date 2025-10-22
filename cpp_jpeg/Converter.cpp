@@ -10,7 +10,7 @@ const double PI = 3.14159265358979323846;
 
 Mat getC(int taille_blocs){
     int N = taille_blocs;
-    Mat C(N, N, CV_64F);
+    Mat C(N, N, CV_32F, Scalar(0.0f));
     float alpha = 1 / sqrt(N);
     for (int u = 0; u < N; u++){
         for (int x = 0; x < N; x++){
@@ -68,9 +68,9 @@ void Converter::img_rgb2ycbcr(){
 // Sous-echantillonage d'une image YCbCr
 void Converter::sous_ech(){
 
-    Mat Y(H, W, CV_64F);
-    Mat Cb(H/2, W/2, CV_64F);
-    Mat Cr(H/2, W/2, CV_64F);
+    Mat Y(H, W, CV_32F, Scalar(0.0f));
+    Mat Cb(H/2, W/2, CV_32F, Scalar(0.0f));
+    Mat Cr(H/2, W/2, CV_32F, Scalar(0.0f));
 
     for(int i=0; i<(this->H)/2; i++){
         for(int j=0; j<(this->W)/2; j++){
@@ -80,16 +80,16 @@ void Converter::sous_ech(){
             float sommeCr = 0;
             for(int k2=0; k2<2; k2++){
                 for(int k1=0; k1<2; k1++){
-                    Point3D pixel = (this->work_image)[i+k1][j+k2];
-                    Y.at<double>(i+k1,j+k2) = pixel.getX();
+                    Point3D pixel = work_image[2*i + k1][2*j + k2];
+                    Y.at<float>(2*i+k1, 2*j+k2) = pixel.getX();
                     sommeCb += pixel.getY();
                     sommeCr += pixel.getZ();
                 }
             }
 
             // Moyennage pour obtenir Cb et Cr
-            Cb.at<double>(i, j) = sommeCb/4;
-            Cr.at<double>(i, j) = sommeCr/4;
+            Cb.at<float>(i, j) = sommeCb/4;
+            Cr.at<float>(i, j) = sommeCr/4;
         }
     }
 
